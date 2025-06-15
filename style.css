@@ -166,6 +166,25 @@ section {
   color: #ffd700;
 }
 
+/* Location card styles to match info cards */
+.action-card.location {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.action-card.location i {
+  color: #ffd700;
+}
+
+.action-card.location .button-text {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.action-card.location:hover .button-text {
+  background: rgba(255, 255, 255, 0.3);
+}
+
 .info-card h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
