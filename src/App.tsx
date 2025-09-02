@@ -55,7 +55,7 @@ export default function App() {
           <div className="grid cols-3" style={{ marginTop: "0.75rem" }}></div>
         </Section>
 
-        <Section id="contrib" title="Contributions">
+        <Section id="contributions" title="Contributions">
           <ul>
             {content.contributions.map((c) => (
               <li key={c}>{c}</li>
@@ -63,7 +63,7 @@ export default function App() {
           </ul>
         </Section>
 
-        <Section id="about" title="Authors">
+        <Section id="authors" title="Authors">
           <p>{content.authors}</p>
           {content.affiliation ? (
             <p className="muted">{content.affiliation}</p>
