@@ -38,7 +38,7 @@ export default function App() {
           </ul>
         </Section>
 
-        <Section id="method" title="Method overview">
+        <Section id="method" title="How does it work?">
           <div>
             {content.method.map((m) => (
               <p key={m}>{m}</p>
@@ -46,7 +46,7 @@ export default function App() {
           </div>
         </Section>
 
-        <Section id="results" title="Results at a glance">
+        <Section id="results" title="Our main conclusions">
           <ul>
             {content.resultsHighlights.map((r) => (
               <li key={r}>{r}</li>
