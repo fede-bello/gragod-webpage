@@ -1,40 +1,24 @@
 :root {
-  --bg: #0b0c0e;
-  --fg: #e6e7e9;
-  --muted: #a3a6ad;
-  --card: #121418;
-  --border: #22262c;
+  /* Light theme as default */
+  --bg: #ffffff;
+  --fg: #0b0c0e;
+  --muted: #4b5563;
+  --card: #f9fafb;
+  --border: #e5e7eb;
   --accent: #0f766e;
-  --accent-contrast: #0a0f10;
-  --focus: #f59e0b;
-  --maxw: 72ch;
+  --accent-contrast: #ffffff;
+  --focus: #b45309;
+  --maxw: 74ch;
   --space: 1rem;
   /* SVG theming */
-  --edge-from: rgba(15, 118, 110, 0.25);
-  --edge-to: rgba(245, 158, 11, 0.35);
-  --node-core: rgba(255, 255, 255, 0.95);
-  --node-outer: rgba(255, 255, 255, 0.15);
-  --node-ring: rgba(15, 118, 110, 0.35);
+  --edge-from: rgba(15, 118, 110, 0.35);
+  --edge-to: rgba(245, 158, 11, 0.45);
+  --node-core: rgba(0, 0, 0, 0.85);
+  --node-outer: rgba(0, 0, 0, 0.08);
+  --node-ring: rgba(15, 118, 110, 0.5);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #ffffff;
-    --fg: #0b0c0e;
-    --muted: #4b5563;
-    --card: #f9fafb;
-    --border: #e5e7eb;
-    --accent: #0f766e;
-    --accent-contrast: #ffffff;
-    --focus: #b45309;
-    /* SVG theming - light */
-    --edge-from: rgba(15, 118, 110, 0.35);
-    --edge-to: rgba(245, 158, 11, 0.45);
-    --node-core: rgba(0, 0, 0, 0.85);
-    --node-outer: rgba(0, 0, 0, 0.08);
-    --node-ring: rgba(15, 118, 110, 0.5);
-  }
-}
+/* System preference can still opt-in via data-theme, so we drop the automatic media override */
 
 /* Theme override via data-theme attribute */
 [data-theme="dark"] {
@@ -94,7 +78,7 @@ body {
 .container {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 0 var(--space);
+  padding: 0 1rem;
 }
 header,
 footer {
@@ -269,8 +253,6 @@ section {
 .section-emoji {
   font-size: 1.2em;
 }
-.section-title .anchor {
-}
 .section-title::after {
   content: "";
   height: 1px;
@@ -288,16 +270,19 @@ section {
 .section-content p {
   line-height: 1.75;
 }
+.section-content p + p {
+  margin-top: 0.75rem;
+}
 .section-content p:first-of-type {
-  font-size: 1.05rem;
+  font-size: 1.075rem;
   color: var(--fg);
 }
 .section-content ul {
-  margin: 0.5rem 0;
+  margin: 0.8rem 0;
   padding-left: 1.25rem;
 }
 .section-content li {
-  margin: 0.5rem 0;
+  margin: 0.85rem 0;
 }
 
 .hero {

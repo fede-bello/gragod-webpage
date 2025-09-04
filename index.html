@@ -7,7 +7,7 @@
       name="description"
       content="GraGOD: Graph-based models for multivariate time-series anomaly detection using GNNs. Overview of problem, approach, datasets (SWaT, TELCO), results, and resources."
     />
-    <meta name="theme-color" content="#0f766e" />
+    <meta name="theme-color" content="#ffffff" />
 
     <title>GraGOD — Graph-based TS Anomaly Detection</title>
     <meta
@@ -35,6 +35,18 @@
     <link rel="icon" href="/favicon.ico" />
   </head>
   <body>
+    <script>
+      // Apply default light theme ASAP to avoid FOUC
+      (function () {
+        var root = document.documentElement;
+        var saved = localStorage.getItem("theme");
+        if (saved && saved !== "system") {
+          root.setAttribute("data-theme", saved);
+        } else {
+          root.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
     <a class="skip-link" href="#main">Skip to content</a>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
