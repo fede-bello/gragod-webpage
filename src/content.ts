@@ -22,31 +22,31 @@ export const content: Content = {
       href: "https://github.com/GraGODs/GraGOD?tab=readme-ov-file",
     },
   ],
-  tldr: [
-    "Turn time series data into graphs where connections show how variables relate to each other.",
-    "Test different models (some with graphs, some without) to see what works best.",
-    "Make a careful analysis of the current state of the art in time series anomaly detection.",
+  objectives: [
+    "Turn **time series** data into **graphs** where connections show how variables relate to each other.",
+    "Test **different models** (some with graphs, some without) to see what **works best**.",
+    "Make a **careful analysis** of the current **state of the art** in time series anomaly detection.",
   ],
   why: [
-    "Finding anomalies is important in several domains, such as health, industrial systems, cybersecurity, and telecom.",
+    "Finding **anomalies is important** in several domains, such as health, industrial systems, cybersecurity, and telecom.",
     "Traditional methods can be misleading, especially with noisy data and long time periods.",
-    "Graphs can capture how sensors and data streams relate to each other, making detection more reliable by using the knowledge of the system.",
+    "**Graphs** can capture how sensors and data streams relate to each other, making detection more **reliable** by using the knowledge of the system.",
   ],
   method: [
     "We model each time series as a node in a graph. We connect them based on known or learned relationships.",
-    "Once we have the graph, we use a GNN or any other predictive model a characteristic of the time series (e.g. a future value).",
-    "We then calculate the anomaly score for each series based on the difference between the predicted and actual value.",
-    "We then use a threshold to decide if the series is anomalous or not.",
+    "Once we have the graph, we use a **GNN** or any other predictive model a characteristic of the time series (e.g. a future value).",
+    "We then calculate the **anomaly score** for each series based on the difference between the predicted and actual value.",
+    "We then use a **threshold** to decide if the series is anomalous or not.",
   ],
-  resultsHighlights: [
-    "The TSAD area is still in its early stages, and there is much to be explored. Limitations like untrustful metrics and datasets make it hard to easily assess the performance of the models.",
+  conclusions: [
+    "The **TSAD** area is still in its early stages, and there is much to be explored. Limitations like untrustful metrics and datasets make it hard to easily assess the performance of the models.",
     "For SWaT, using the real system structure really helped. GNN models performed better than the other models. For TELCO, graphs didn't help much.",
-    "The current framework of predicting a future value does not necessarily align with the objective of detecting anomalies.",
+    "The **current framework is suboptimal**: predicting a future value does not necessarily align with the objective of detecting anomalies.",
   ],
   contributions: [
-    "Built GraGOD: a clean, reusable framework for testing graph-based anomaly detection.",
-    "Studied how different graph structures affect anomaly detection performance.",
-    "Showed why some evaluation methods are misleading and proposed better ways to measure success.",
+    "Built **GraGOD**: a clean, reusable framework for testing graph-based anomaly detection.",
+    "Studied how **different graph structures affect anomaly detection performance.**",
+    "Showed why some evaluation metrics are misleading and proposed better ways to measure success.",
   ],
   links: [
     {

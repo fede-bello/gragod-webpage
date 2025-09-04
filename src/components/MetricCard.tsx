@@ -7,30 +7,15 @@ interface Props {
 
 export function MetricCard({ metric }: Props) {
   return (
-    <div
-      className="card"
+    <figure
+      className="metric"
       role="figure"
       aria-label={`${metric.label} ${metric.value}`}
-      style={{ display: "grid", gap: "0.25rem" }}
     >
-      <div style={{ fontSize: "0.875rem", color: "var(--muted)" }}>
-        {metric.label}
-      </div>
-      <div
-        style={{
-          fontSize: "1.75rem",
-          fontWeight: 800,
-          letterSpacing: "-0.01em",
-        }}
-      >
-        {metric.value}
-      </div>
-      {metric.note ? (
-        <div className="muted" style={{ fontSize: "0.875rem" }}>
-          {metric.note}
-        </div>
-      ) : null}
-    </div>
+      <figcaption className="metric-label">{metric.label}</figcaption>
+      <div className="metric-value">{metric.value}</div>
+      {metric.note ? <div className="metric-note">{metric.note}</div> : null}
+    </figure>
   );
 }
 

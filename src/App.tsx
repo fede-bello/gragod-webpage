@@ -2,16 +2,20 @@ import { content } from "./content";
 import Hero from "./components/Hero";
 import Section from "./components/Section";
 import Nav from "./components/Nav";
+import Highlight from "./components/Highlight";
 
 export default function App() {
   return (
     <>
+      <a href="#main" className="skip-link">
+        Skip to main content
+      </a>
       <Nav
         links={[
-          { label: "Objectives", href: "#tldr" },
+          { label: "Objectives", href: "#objectives" },
           { label: "Why", href: "#why" },
           { label: "Method", href: "#method" },
-          { label: "Results", href: "#results" },
+          { label: "Conclusions", href: "#conclusions" },
           { label: "Contributions", href: "#contributions" },
           { label: "Authors", href: "#authors" },
         ]}
@@ -22,34 +26,42 @@ export default function App() {
         ctas={content.ctas}
       />
       <main id="main" className="container" role="main">
-        <Section id="tldr" title="Objectives">
+        <Section id="objectives" title="Objectives">
           <ul>
-            {content.tldr.map((t) => (
-              <li key={t}>{t}</li>
+            {content.objectives.map((t) => (
+              <li key={t}>
+                <Highlight text={t} />
+              </li>
             ))}
           </ul>
         </Section>
 
-        <Section id="why" title="Why is it important?">
+        <Section id="why" title="Why Is It Important?">
           <ul>
             {content.why.map((t) => (
-              <li key={t}>{t}</li>
+              <li key={t}>
+                <Highlight text={t} />
+              </li>
             ))}
           </ul>
         </Section>
 
-        <Section id="method" title="How does it work?">
+        <Section id="method" title="How Does It Work?">
           <div>
             {content.method.map((m) => (
-              <p key={m}>{m}</p>
+              <p key={m}>
+                <Highlight text={m} />
+              </p>
             ))}
           </div>
         </Section>
 
-        <Section id="results" title="Our main conclusions">
+        <Section id="conclusions" title="Our Main Conclusions">
           <ul>
-            {content.resultsHighlights.map((r) => (
-              <li key={r}>{r}</li>
+            {content.conclusions.map((r) => (
+              <li key={r}>
+                <Highlight text={r} />
+              </li>
             ))}
           </ul>
           <div className="grid cols-3" style={{ marginTop: "0.75rem" }}></div>
@@ -58,7 +70,9 @@ export default function App() {
         <Section id="contributions" title="Contributions">
           <ul>
             {content.contributions.map((c) => (
-              <li key={c}>{c}</li>
+              <li key={c}>
+                <Highlight text={c} />
+              </li>
             ))}
           </ul>
         </Section>

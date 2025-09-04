@@ -22,10 +22,10 @@ export interface Content {
   authors: string;
   affiliation?: string;
   ctas: LinkItem[];
-  tldr: string[];
+  objectives: string[];
   why: string[];
   method: string[];
-  resultsHighlights: string[];
+  conclusions: string[];
   contributions: string[];
   links: LinkItem[];
   citation?: string; // BibTeX or plain text

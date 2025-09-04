@@ -5,6 +5,7 @@ interface Props {
   children: React.ReactNode;
   variant?: "primary" | "default";
   ariaLabel?: string;
+  icon?: React.ReactNode;
 }
 
 export function LinkButton({
@@ -12,6 +13,7 @@ export function LinkButton({
   children,
   variant = "default",
   ariaLabel,
+  icon,
 }: Props) {
   return (
     <a
@@ -21,7 +23,12 @@ export function LinkButton({
       rel="noreferrer"
       aria-label={ariaLabel}
     >
-      {children}
+      {icon ? (
+        <span className="btn-icon" aria-hidden>
+          {icon}
+        </span>
+      ) : null}
+      <span>{children}</span>
     </a>
   );
 }

@@ -8,6 +8,16 @@ interface Props {
 
 export function Nav({ links }: Props) {
   const [active, setActive] = React.useState<string | null>(null);
+  const [progress, setProgress] = React.useState<number>(0);
+  const [hidden, setHidden] = React.useState<boolean>(false);
+  const lastYRef = React.useRef<number>(0);
+  const suppressHideUntilRef = React.useRef<number>(0);
+
+  function handleLinkClick(targetId?: string) {
+    suppressHideUntilRef.current = Date.now() + 1200; // suppress during smooth scroll
+    setHidden(false);
+    if (targetId) setActive(targetId);
+  }
 
   React.useEffect(() => {
     const sectionIds = links
@@ -19,24 +29,92 @@ export function Nav({ links }: Props) {
 
     if (sections.length === 0) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) {
-          setActive(visible[0].target.id);
-        }
-      },
-      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
-    );
+    function getOffset() {
+      const nav = document.querySelector(".nav-wrap") as HTMLElement | null;
+      return nav ? nav.offsetHeight + 8 : 64;
+    }
+    function setActiveByScroll() {
+      if (sections.length === 0) return;
+      const offset = getOffset();
+      const viewportTop = offset;
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 1;
 
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
+      // Determine which section crosses the viewportTop line
+      let currentId = sections[0].id;
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const rect = sections[i].getBoundingClientRect();
+        if (rect.top <= viewportTop) {
+          currentId = sections[i].id;
+          break;
+        }
+      }
+
+      // If at the bottom of the page, force last section
+      if (atBottom) {
+        currentId = sections[sections.length - 1].id;
+      }
+      setActive(currentId);
+    }
+
+    setActiveByScroll();
+    window.addEventListener("scroll", setActiveByScroll, { passive: true });
+    function onHash() {
+      suppressHideUntilRef.current = Date.now() + 1200;
+      setHidden(false);
+      setActiveByScroll();
+    }
+    window.addEventListener("hashchange", onHash);
+    window.addEventListener("resize", setActiveByScroll);
+    return () => {
+      window.removeEventListener("scroll", setActiveByScroll as any);
+      window.removeEventListener("hashchange", onHash as any);
+      window.removeEventListener("resize", setActiveByScroll as any);
+    };
   }, [links]);
 
+  React.useEffect(() => {
+    function onScroll() {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop;
+      const height = doc.scrollHeight - doc.clientHeight;
+      const pct = height > 0 ? (scrolled / height) * 100 : 0;
+      setProgress(Math.max(0, Math.min(100, pct)));
+    }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  React.useEffect(() => {
+    const THRESHOLD = 6; // px to avoid jitter
+    function handleHideOnScroll() {
+      const y = window.scrollY;
+      const now = Date.now();
+      if (now < suppressHideUntilRef.current) {
+        lastYRef.current = y;
+        return;
+      }
+      const lastY = lastYRef.current;
+      if (y <= 0) {
+        setHidden(false);
+      } else if (y > lastY + THRESHOLD) {
+        // scrolling down
+        setHidden(true);
+      } else if (y < lastY - THRESHOLD) {
+        // scrolling up
+        setHidden(false);
+      }
+      lastYRef.current = y;
+    }
+    lastYRef.current = window.scrollY;
+    window.addEventListener("scroll", handleHideOnScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleHideOnScroll);
+  }, []);
+
   return (
-    <div className="nav-wrap">
+    <div className={`nav-wrap${hidden ? " hidden" : ""}`}>
       <nav className="container nav" role="navigation" aria-label="Sections">
         <a href="#main" className="brand" aria-label="Skip to main">
           GraGOD
@@ -50,6 +128,7 @@ export function Nav({ links }: Props) {
                 key={l.href}
                 href={l.href}
                 className={`nav-link${isActive ? " active" : ""}`}
+                onClick={() => handleLinkClick(id)}
               >
                 {l.label}
               </a>
@@ -58,6 +137,9 @@ export function Nav({ links }: Props) {
         </div>
         <ThemeToggle />
       </nav>
+      <div className="progress" aria-hidden>
+        <div className="progress-bar" style={{ width: `${progress}%` }} />
+      </div>
     </div>
   );
 }
